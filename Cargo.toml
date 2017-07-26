@@ -1,0 +1,13 @@
+[package]
+name = "echo"
+version = "0.1.0"
+authors = ["Masanori Misono <m.misono760@gmail.com>"]
+
+[dependencies]
+bitvisor_process_lib = { git = "https://github.com/mmisono/bitvisor_process_lib" }
+
+[lib]
+crate-type = ["staticlib"]
+
+[profile.release]
+panic = "abort"

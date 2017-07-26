@@ -1,0 +1,34 @@
+diff -r 90ac93480f87 Makefile.build
+--- a/Makefile.build	Fri Jun 23 11:39:30 2017 +0900
++++ b/Makefile.build	Wed Jul 26 18:53:42 2017 +0900
+@@ -152,5 +152,13 @@
+ -e '$${x' -e 's/>.</ /g' -e 's/>$$//p' -e 's/.*: *//' \
+ -e 's/$$/ :/p' -e '}' $< > $(@:.o=).d || { $(RM) $@; false; }
+ 
++process/echo.o : FORCE
++	echo ' ' XARGO echo
++	cd process/bitvisor_process_echo && xargo build --verbose --target=x86_64-bitvisor --release && cd ../../
++	ld --gc-sections -r -e _start ./process/bitvisor_process_echo/target/x86_64-bitvisor/release/libecho.a -o ./process/echo.o
++
++FORCE:
++
++
+ # include
+ include $(dir)$(depends)
+diff -r 90ac93480f87 process/Makefile
+--- a/process/Makefile	Fri Jun 23 11:39:30 2017 +0900
++++ b/process/Makefile	Wed Jul 26 18:53:42 2017 +0900
+@@ -9,6 +9,8 @@
+ bins-$(CONFIG_IP) += echoctl
+ bins-$(CONFIG_PCI_MONITOR) += monitor
+ 
++bins-1 += echo
++
+ debug-objs = debug.o
+ help-objs = help.o
+ idman-objs = idman.o
+@@ -27,3 +29,4 @@
+ vpn-libs = vpn/lib/$(outa) crypto/$(outa)
+ echoctl-objs = echoctl.o
+ monitor-objs = monitor.o
++echo-objs = echo.o
