@@ -17,7 +17,7 @@ hg clone https://bitbucket.org/bitvisor/bitvisor
 cd bitvisor/process
 git clone https://github.com/mmisono/bitvisor_process_echo
 cd ../
-patch -p1 < ./process/bitvisor_process/echo/patch.diff
+patch -p1 < ./process/bitvisor_process_echo/patch.diff
 rustup override set nightly
 make
 ```
