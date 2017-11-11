@@ -38,7 +38,7 @@ pub extern "C" fn _start(_a1: i32, _a2: i32) -> i32 {
         if let Ok(n) = input.parse::<u32>() {
             let mut a = vec![2];
             for i in (3..=n).step_by(2) {
-                if a.iter().filter(|&n| n % i == 0).take(1).count() == 0 {
+                if a.iter().filter(|&n| i % n == 0).take(1).count() == 0 {
                     print!("{} ", i);
                     a.push(i);
                 }
